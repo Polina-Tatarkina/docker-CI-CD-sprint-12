@@ -1,6 +1,4 @@
-name: CI & Publish to DockerHub
-
-# Запускаем workflow на push в master и на теги
+name: CI/CD & Publish to DockerHub
 on:
   push:
     branches:
