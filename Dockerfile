@@ -3,16 +3,17 @@ FROM golang:1.21-alpine
 
 WORKDIR /app
 
-# Копируем только файлы модуля
-COPY go.mod go.sum ./
+# Включаем Go modules
+ENV GO111MODULE=on
+
+# Копируем всё сразу (все .go, go.mod, go.sum)
+COPY . .
 
 # Скачиваем зависимости
 RUN go mod tidy
 
-# Копируем исходники
-COPY *.go ./
-
 # Сборка приложения
 RUN go build -o app
 
+# Команда по умолчанию
 CMD ["./app"]
