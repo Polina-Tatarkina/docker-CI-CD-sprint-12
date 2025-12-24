@@ -1,6 +1,7 @@
-# Используем Go 1.22 на Alpine
-FROM golang:1.22-alpine
 
+FROM golang:1.24-alpine
+
+# Создаём рабочую директорию
 WORKDIR /app
 
 # Копируем только файлы зависимостей для кеша
@@ -10,12 +11,14 @@ RUN go mod download
 # Копируем весь проект
 COPY . .
 
-# Отключаем Cgo и собираем статический бинарник
+
 ENV CGO_ENABLED=0
+
+# Собираем приложение
 RUN go build -o app .
 
-# Если есть база данных
+# Копируем базу данных
 COPY tracker.db /app/tracker.db
 
-# Команда запуска
+# Команда по умолчанию
 CMD ["./app"]
