@@ -3,12 +3,11 @@ FROM golang:1.21-alpine
 
 WORKDIR /app
 
-# Копируем файлы модуля
-COPY go.mod go.sum ./
-RUN go mod download
+# Копируем все файлы модуля сразу
+COPY . .
 
-# Копируем исходники
-COPY *.go ./
+# Скачиваем зависимости
+RUN go mod tidy
 
 # Сборка приложения
 RUN go build -o app
