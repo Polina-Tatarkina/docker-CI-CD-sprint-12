@@ -1,19 +1,15 @@
-# syntax=docker/dockerfile:1
-FROM golang:1.21-alpine
+FROM golang:1.22-alpine
 
 WORKDIR /app
 
-# Включаем Go modules
-ENV GO111MODULE=on
+COPY go.mod go.sum ./
+RUN go mod download
 
-# Копируем всё сразу (все .go, go.mod, go.sum)
 COPY . .
 
-# Скачиваем зависимости
-RUN go mod tidy
+ENV CGO_ENABLED=0
+RUN go build -o app .
 
-# Сборка приложения
-RUN go build -o app
+COPY tracker.db /app/tracker.db
 
-# Команда по умолчанию
 CMD ["./app"]
