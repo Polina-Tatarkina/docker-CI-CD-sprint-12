@@ -40,14 +40,14 @@ jobs:
 
       - name: Build Docker image
         env:
-          IMAGE: polina-tatarkina/docker-ci-cd-sprint-12
+          IMAGE: ptatarkina/docker-ci-cd-sprint-12
           VERSION: ${{ github.ref_name }}
         run: |
           docker build -t "$IMAGE:$VERSION" -t "$IMAGE:latest" .
 
       - name: Push Docker image
         env:
-          IMAGE: polina-tatarkina/docker-ci-cd-sprint-12
+          IMAGE: ptatarkina/docker-ci-cd-sprint-12
           VERSION: ${{ github.ref_name }}
         run: |
           docker push "$IMAGE:$VERSION"
