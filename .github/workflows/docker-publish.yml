@@ -23,4 +23,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/parcel-app:${{ github.ref_name }}
+          tags: ptatarkina/parcel-app:${{ github.ref_name }}
+          file: ./Dockerfile
